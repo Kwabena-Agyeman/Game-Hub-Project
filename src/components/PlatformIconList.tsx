@@ -18,10 +18,6 @@ interface Props {
   platforms: Platform[];
 }
 
-interface IconMap {
-  [key: string]: IconType;
-}
-
 const PlatformIconList = ({ platforms }: Props) => {
   const iconMap: { [key: string]: IconType } = {
     pc: FaWindows as IconType,
