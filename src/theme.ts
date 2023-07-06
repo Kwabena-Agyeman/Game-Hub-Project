@@ -4,6 +4,6 @@ const config: ThemeConfig = {
   initialColorMode: 'dark',
 };
 
-const theme = extendTheme(config) as ChakraTheme;
+const theme = extendTheme({ config }) as ChakraTheme;
 
 export default theme;
