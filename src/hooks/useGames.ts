@@ -18,13 +18,14 @@ export interface Platform {
 
 interface Props {
   genre: string | number;
+  platform: string | number;
 }
 interface FetchResponse {
   count: number;
   results: Game[];
 }
 
-const useGames = ({ genre }: Props) => {
+const useGames = ({ genre, platform }: Props) => {
   const [data, setData] = useState<Game[]>([]);
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -38,6 +39,7 @@ const useGames = ({ genre }: Props) => {
         signal: controller.signal,
         params: {
           ...(genre && { genres: genre }),
+          ...(platform && { parent_platforms: platform }),
         },
       })
       .then((res) => {
@@ -53,7 +55,7 @@ const useGames = ({ genre }: Props) => {
 
     return () => controller.abort();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [genre]);
+  }, [genre, platform]);
 
   return { data, error, isLoading };
 };
