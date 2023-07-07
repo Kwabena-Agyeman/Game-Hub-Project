@@ -19,13 +19,14 @@ export interface Platform {
 interface Props {
   genre: string | number;
   platform: string | number;
+  sortOrder: string;
 }
 interface FetchResponse {
   count: number;
   results: Game[];
 }
 
-const useGames = ({ genre, platform }: Props) => {
+const useGames = ({ genre, platform, sortOrder }: Props) => {
   const [data, setData] = useState<Game[]>([]);
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -40,6 +41,7 @@ const useGames = ({ genre, platform }: Props) => {
         params: {
           ...(genre && { genres: genre }),
           ...(platform && { parent_platforms: platform }),
+          ...(sortOrder && { ordering: sortOrder }),
         },
       })
       .then((res) => {
@@ -55,7 +57,7 @@ const useGames = ({ genre, platform }: Props) => {
 
     return () => controller.abort();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [genre, platform]);
+  }, [genre, platform, sortOrder]);
 
   return { data, error, isLoading };
 };

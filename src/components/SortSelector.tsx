@@ -1,36 +1,37 @@
 import { Button, Menu, MenuButton, MenuItem, MenuList } from '@chakra-ui/react';
 import { BsChevronDown } from 'react-icons/bs';
-import usePlatforms from '../hooks/usePlatforms';
-import { Platform } from '../hooks/useGames';
 
 interface Props {
-  onSelectPlatform: (platform: Platform) => void;
-  selectedPlatform: Platform | null;
+  onSelectSortOrder: (sortOrder: string) => void;
+  sortOrder: string;
 }
 
-const SortSelector = ({}: Props) => {
-  const { data: platforms, error } = usePlatforms();
+const SortSelector = ({ onSelectSortOrder, sortOrder }: Props) => {
+  const sortOrders = [
+    { value: '', label: 'Relevance' },
+    { value: '-added', label: 'Date added' },
+    { value: 'name', label: 'Name' },
+    { value: '-released', label: 'Release date' },
+    { value: '-metacritic', label: 'Popularity' },
+    { value: '-rating', label: 'Average rating' },
+  ];
 
-  if (error) return null;
-
+  const currentSortOrder = sortOrders.find((obj) => obj.value === sortOrder);
   return (
     <Menu>
       <MenuButton as={Button} rightIcon={<BsChevronDown />}>
-        Order by
+        Order by : {currentSortOrder?.label || 'Relevance'}
       </MenuButton>
       <MenuList>
-        <p>hello</p>
-        <p>hello</p>
-        <p>hello</p>
-        <p>hello</p>
-        {/* {platforms.map((platform) => (
+        {sortOrders.map((order) => (
           <MenuItem
-            key={platform.id}
-            onClick={() => onSelectPlatform(platform)}
+            key={order.value}
+            value={order.value}
+            onClick={() => onSelectSortOrder(order.value)}
           >
-            {platform.name}
+            {order.label}
           </MenuItem>
-        ))} */}
+        ))}
       </MenuList>
     </Menu>
   );

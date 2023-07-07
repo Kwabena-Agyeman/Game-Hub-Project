@@ -9,7 +9,7 @@ interface Props {
   gameQuery: GameQuery;
 }
 
-const GameGrid = ({ gameQuery: { genre, platform } }: Props) => {
+const GameGrid = ({ gameQuery: { genre, platform, sortOrder } }: Props) => {
   const {
     data: games,
     error,
@@ -17,6 +17,7 @@ const GameGrid = ({ gameQuery: { genre, platform } }: Props) => {
   } = useGames({
     genre: genre ? genre.id : '',
     platform: platform ? platform.id : '',
+    sortOrder: sortOrder,
   });
 
   const skeletons = [1, 2, 3, 4, 5, 6, 7, 8];
