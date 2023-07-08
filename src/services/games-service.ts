@@ -11,12 +11,15 @@ export interface Game {
   rating_top: number;
 }
 
-interface GamesFetchResponse {
+export interface GamesFetchResponse {
   count: number;
   results: Game[];
+  next: string | null;
 }
 
-export const fetchGames = async (gameQuery: GameQuery): Promise<Game[]> => {
+export const fetchGames = async (
+  gameQuery: GameQuery
+): Promise<GamesFetchResponse> => {
   const { genre, platform, searchText, sortOrder } = gameQuery;
   return await apiClient
     .get<GamesFetchResponse>('/games', {
@@ -27,5 +30,5 @@ export const fetchGames = async (gameQuery: GameQuery): Promise<Game[]> => {
         ...(searchText && { search: searchText }),
       },
     })
-    .then((res) => res.data.results);
+    .then((res) => res.data);
 };
