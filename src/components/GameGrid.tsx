@@ -17,15 +17,15 @@ const GameGrid = ({
     error,
     isLoading,
   } = useGames({
-    genre: genre ? genre.id : '',
-    platform: platform ? platform.id : '',
+    genre,
+    platform,
     sortOrder: sortOrder,
     searchText: searchText,
   });
 
   const skeletons = [1, 2, 3, 4, 5, 6, 7, 8];
 
-  if (error) return <Text>{error}</Text>;
+  if (error) return <Text>{error.message}</Text>;
 
   return (
     <SimpleGrid
@@ -44,7 +44,7 @@ const GameGrid = ({
             <GameCardSkeleton />
           </GameCardContainer>
         ))}
-      {games.map((game) => (
+      {games?.map((game) => (
         <GameCardContainer key={game.id}>
           <GameCard game={game} />
         </GameCardContainer>

@@ -1,7 +1,15 @@
-import { Button, Menu, MenuButton, MenuItem, MenuList } from '@chakra-ui/react';
+import {
+  Box,
+  Button,
+  Menu,
+  MenuButton,
+  MenuItem,
+  MenuList,
+  Spinner,
+} from '@chakra-ui/react';
 import { BsChevronDown } from 'react-icons/bs';
 import usePlatforms from '../hooks/usePlatforms';
-import { Platform } from '../hooks/useGames';
+import { Platform } from '../services/platform-service';
 
 interface Props {
   onSelectPlatform: (platform: Platform) => void;
@@ -9,9 +17,21 @@ interface Props {
 }
 
 const PlatformSelector = ({ onSelectPlatform, selectedPlatform }: Props) => {
-  const { data: platforms, error } = usePlatforms();
+  const { data: platforms, error, isLoading } = usePlatforms();
 
   if (error) return null;
+
+  if (isLoading)
+    return (
+      <Box
+        display={'flex'}
+        height={'full'}
+        justifyContent={'center'}
+        alignItems={'center'}
+      >
+        <Spinner />
+      </Box>
+    );
 
   return (
     <Menu>
