@@ -9,8 +9,9 @@ import {
   Spinner,
   Text,
 } from '@chakra-ui/react';
-import useGenres, { Genre } from '../hooks/useGenres';
+import useGenres from '../hooks/useGenres';
 import getCroppedImageUrl from '../services/image-url';
+import { Genre } from '../services/genres-service';
 
 interface Props {
   onSelectGenre: (genre: Genre) => void;
@@ -28,7 +29,7 @@ const GenreList = ({ onSelectGenre, selectedGenre }: Props) => {
         justifyContent={'center'}
         alignItems={'center'}
       >
-        {isLoading ? <Spinner /> : <Text>{error}</Text>}
+        {isLoading ? <Spinner /> : <Text>{error.message}</Text>}
       </Box>
     );
   return (
