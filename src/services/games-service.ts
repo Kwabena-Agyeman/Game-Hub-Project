@@ -1,4 +1,4 @@
-import { GameQuery } from '../App';
+import { GameQuery } from '../context/GameQueryContext';
 import apiClient from './api-client';
 import { Platform } from './platform-service';
 

@@ -3,8 +3,8 @@ import useGames from '../hooks/useGames';
 import GameCard from './GameCard';
 import GameCardSkeleton from './GameCardSkeleton';
 import GameCardContainer from './GameCardContainer';
-import { GameQuery } from '../App';
 import React from 'react';
+import { GameQuery } from '../context/GameQueryContext';
 
 interface Props {
   gameQuery: GameQuery;
