@@ -16,9 +16,25 @@ export interface Game {
   publishers: { id: number; name: string }[];
 }
 
+export interface GameTrailer {
+  id: number;
+  name: string;
+  preview: string;
+  data: {
+    480: string;
+    max: string;
+  };
+}
+
 export interface GamesFetchResponse {
   count: number;
   results: Game[];
+  next: string | null;
+}
+
+export interface GamesTrailerFetchResponse {
+  count: number;
+  results: GameTrailer[];
   next: string | null;
 }
 
@@ -40,4 +56,12 @@ export const fetchGames = async (
 
 export const fetchGameDetails = async (slug: string): Promise<Game> => {
   return await apiClient.get<Game>(`/games/${slug}`).then((res) => res.data);
+};
+
+export const fetchGameTrailers = async (
+  id: number
+): Promise<GamesTrailerFetchResponse> => {
+  return await apiClient
+    .get<GamesTrailerFetchResponse>(`/games/${id}/movies`)
+    .then((res) => res.data);
 };
