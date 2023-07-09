@@ -5,10 +5,12 @@ import { Platform } from './platform-service';
 export interface Game {
   id: number;
   name: string;
+  slug: string;
   background_image: string;
   parent_platforms: { platform: Platform }[];
   metacritic: number;
   rating_top: number;
+  description_raw: string;
 }
 
 export interface GamesFetchResponse {
@@ -31,4 +33,8 @@ export const fetchGames = async (
       },
     })
     .then((res) => res.data);
+};
+
+export const fetchGameDetails = async (slug: string): Promise<Game> => {
+  return await apiClient.get<Game>(`/games/${slug}`).then((res) => res.data);
 };
