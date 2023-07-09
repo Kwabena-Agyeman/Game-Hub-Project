@@ -1,12 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { ChakraProvider, ColorModeScript } from '@chakra-ui/react';
-import App from './App.tsx';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import theme from './theme';
 
 import './index.css';
+import { RouterProvider } from 'react-router-dom';
+import router from './routes';
+import { GameQueryContextProvider } from './context/GameQueryContext';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -26,7 +28,9 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
     <QueryClientProvider client={queryClient}>
       <ChakraProvider theme={theme}>
         <ColorModeScript initialColorMode={theme.config.initialColorMode} />
-        <App />
+        <GameQueryContextProvider>
+          <RouterProvider router={router} />
+        </GameQueryContextProvider>
         <ReactQueryDevtools />
       </ChakraProvider>
     </QueryClientProvider>
