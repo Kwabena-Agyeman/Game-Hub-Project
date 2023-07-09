@@ -1,5 +1,6 @@
 import { GameQuery } from '../context/GameQueryContext';
 import apiClient from './api-client';
+import { Genre } from './genres-service';
 import { Platform } from './platform-service';
 
 export interface Game {
@@ -11,6 +12,8 @@ export interface Game {
   metacritic: number;
   rating_top: number;
   description_raw: string;
+  genres: Genre[];
+  publishers: { id: number; name: string }[];
 }
 
 export interface GamesFetchResponse {
